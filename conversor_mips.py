@@ -67,7 +67,7 @@ def opcode_i(opcode_i):
     rs = int(instrucao[6:11],2)
     rt = int(instrucao[11:16],2)
     imm = int(instrucao[16:32],2)
-    instrucao_string = f'{operacao} {rt}$, {imm}(${rs})'
+    instrucao_string = f'{operacao} ${rt}, {imm}(${rs})'
     print(instrucao_string)
 
 
