@@ -59,7 +59,34 @@ def operacao_sra(rt,sa):
   return rt >> sa
 
 def operacao_srl(rt,sa):
-  return (rt >>> sa) # ERRO
+  return (rt % 0x100000000) >> sa
+
+def operacao_sub(rs,rt):
+  return rs - rt 
+
+def operacao_xor(rs,rt):
+  return rs ^ rt
+
+def operacao_addi(rs,imm):
+  return rs + imm 
+
+def operacao_andi(rs,imm):
+  return rs & imm
+
+def operacao_slti(rt,imm):
+  if rt < imm:
+    return 1
+  else:
+    return 0
+
+def operacao_ori(rs,imm):
+  return rs | imm
+
+def operacao_xori(rs,imm):
+  return rs ^ imm
+
+def operacao_lui(imm):
+  return imm << 16
 
 instrucao = input()
 if (instrucao[1] == "0" or instrucao == "1"):
@@ -136,12 +163,15 @@ if (instrucao[1] == "0" or instrucao == "1"):
     elif funcao == "000110":
       print("srlv ${}, ${}, ${}".format(rd,rt,rs))
     elif funcao == "100010":
+      registradores[rd] = operacao_sub(registradores[rs],registradores[rt])
       print("sub ${}, ${}, ${}".format(rd,rs,rt))
     elif funcao == "100011":
+      registradores[rd] = operacao_sub(registradores[rs],registradores[rt])
       print("subu ${}, ${}, ${}".format(rd,rs,rt))
     elif funcao == "001100":
       print("syscall")
     elif funcao == "100110":
+      registradores[rd] = operacao_xor(registradores[rs],registradores[rt])
       print("xor ${}, ${}, ${}".format(rd,rs,rt))
       #Tipo J
     elif opcode == "000010":
@@ -151,10 +181,13 @@ if (instrucao[1] == "0" or instrucao == "1"):
       #Tipo I
     elif (opcode ):
       if opcode == "001000":
+        registradores[rt] = operacao_addi(registradores[rs],imm)
         print("addi ${}, ${}, {}".format(rt,rs,imm))
       elif opcode == "001001":
+        registradores[rt] = operacao_addi(registradores[rs],imm)
         print("addiu ${}, ${}, {}".format(rt,rs,imm))
       elif opcode == "001100":
+        registradores[rt] = operacao_andi(registradores[rs],imm)
         print("andi ${}, ${}, {}".format(rt,rs,imm))
       elif opcode == "000100":
         print("beq ${}, ${}, {}".format(rs,rt,imm))
@@ -177,18 +210,22 @@ if (instrucao[1] == "0" or instrucao == "1"):
       elif opcode == "100101":
         print("ihu ${}, {}({})".format(rt,imm,rs))
       elif opcode == "001111":
+        registradores[rt] = operacao_lui(imm)
         print("lui ${}, {}".format(rt,imm))
       elif opcode == "100011":
         print("lw ${}, {}({})".format(rt,imm,rs))
       elif opcode == "110001":
         print("lwel ${}, {}({})".format(rt,imm,rs))
       elif opcode == "001101":
+        registradores[rt] = operacao_ori(registradores[rs],imm)
         print("ori ${}, ${}, {}".format(rt,rs,imm))
       elif opcode == "101000":
         print("sb ${}, {}({})".format(rt,imm,rs))
       elif opcode == "001010":
+        registradores[rt] = operacao_slti(registradores[rs],imm)
         print("slti ${}, ${}, {}".format(rt,rs,imm))
       elif opcode == "001011":
+        registradores[rt] = operacao_slti(registradores[rs],imm)
         print("sltiu ${}, ${}, {}".format(rt,rs,imm))
       elif opcode == "101001":
         print("sh ${}, {}({})".format(rt,imm,rs))
@@ -197,6 +234,7 @@ if (instrucao[1] == "0" or instrucao == "1"):
       elif opcode == "111001":
         print("swel ${}, {}({})".format(rt,imm,rs))
       elif opcode == "001110":
+        registradores[rt] = operacao_xori(registradores[rs],imm)
         print("xori ${}, ${}, {}".format(rt,rs,imm))
 else:
   lista_instrucao = [] 
@@ -404,5 +442,4 @@ else:
   elif (lista_instrucao[0] == "jal"):
     address = converte_address(lista_instrucao[1])
     print("000011{}".format(address))
-
 
