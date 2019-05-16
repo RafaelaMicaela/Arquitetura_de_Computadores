@@ -10,6 +10,7 @@
 	jal naveGrande
 	addi $9, $0, 0xBD07C8
 	jal nave
+	jal chao
 	
 	addi $2, $0, 10 #Pausa
 	syscall	
@@ -101,6 +102,39 @@ nave:
 	sw $9, 3140($8)
 	sw $9, 3252($8)
 	sw $9, 3268($8)
-	
+	jr $31
 
+chao:
+	lui $8, 0x1001
+	addi $8, $8, 3328
+	addi $9, $0, 0x2E613B #mude essa poha
+	addi $10, $0, 0
+chao1:	beq $10, 64, saiChao1
+		sw $9, 0($8)
+		addi $8, $8, 4
+		addi $10, $10, 1
+	j chao1
 	
+saiChao1:
+	lui $8, 0x1001
+	addi $8, $8, 3584
+	addi $9, $0, 0x2E613B
+	addi $10,  $0, 0
+chao2: beq $10, 64, saiChao2
+		sw $9, 0($8)
+		addi $8, $8, 4
+		addi $10, $10, 1
+	j chao2
+saiChao2:
+	lui $8, 0x1001
+	addi $8, $8, 3840
+	addi $9, $0, 0x2E613B
+	addi $10, $0, 0
+chao3: beq $10, 64, saiChao3
+		sw $9, 0($8)
+		addi $8, $8, 4
+		addi $10, $10, 1
+	j chao3
+saiChao3: jr $31
+
+		
