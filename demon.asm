@@ -107,7 +107,7 @@ nave:
 chao:
 	lui $8, 0x1001
 	addi $8, $8, 3328
-	addi $9, $0, 0x2E613B #mude essa poha
+	addi $9, $0, 0x1A1AFF 
 	addi $10, $0, 0
 chao1:	beq $10, 64, saiChao1
 		sw $9, 0($8)
@@ -118,7 +118,7 @@ chao1:	beq $10, 64, saiChao1
 saiChao1:
 	lui $8, 0x1001
 	addi $8, $8, 3584
-	addi $9, $0, 0x2E613B
+	addi $9, $0, 0x1A1AFF
 	addi $10,  $0, 0
 chao2: beq $10, 64, saiChao2
 		sw $9, 0($8)
@@ -128,7 +128,7 @@ chao2: beq $10, 64, saiChao2
 saiChao2:
 	lui $8, 0x1001
 	addi $8, $8, 3840
-	addi $9, $0, 0x2E613B
+	addi $9, $0, 0x000099
 	addi $10, $0, 0
 chao3: beq $10, 64, saiChao3
 		sw $9, 0($8)
@@ -136,5 +136,3 @@ chao3: beq $10, 64, saiChao3
 		addi $10, $10, 1
 	j chao3
 saiChao3: jr $31
-
-		
