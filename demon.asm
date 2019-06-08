@@ -14,10 +14,10 @@
 	
 	addi $2, $0, 10 #Pausa
 	syscall	
-	
+###### Cenario ###########	
 	
 navePequena:
-	sw $9, 1452($8)
+	sw $9, 1452($8) #Desenho da nave pequena
 	sw $9, 1468($8)
 	sw $9, 1584($8)
 	sw $9, 1588($8)
@@ -25,7 +25,7 @@ navePequena:
 	sw $9, 1716($8)
 	jr $31
 naveGrande:
-	sw $9, 288($8)
+	sw $9, 288($8)#Desenho da nave Grande
 	sw $9, 292($8)
 	sw $9, 296($8)
 	sw $9, 300($8)
@@ -42,6 +42,7 @@ naveGrande:
 	sw $9, 416($8)
 	sw $9, 432($8)
 	sw $9, 444($8)
+	sw $9, 448($8)
 	sw $9, 460($8)
 	sw $9, 476($8)
 	sw $9, 540($8)
@@ -50,6 +51,7 @@ naveGrande:
 	sw $9, 564($8)
 	sw $9, 568($8)
 	sw $9, 580($8)
+	sw $9, 584($8)
 	sw $9, 600($8)
 	sw $9, 604($8)
 	sw $9, 608($8)
@@ -86,7 +88,7 @@ naveGrande:
 	jr $31
 
 nave:
-	sw $9, 2620($8)
+	sw $9, 2620($8) #nave principal (a que é atacada) 
 	sw $9, 2744($8)
 	sw $9, 2748($8)
 	sw $9, 2752($8)
@@ -104,6 +106,7 @@ nave:
 	sw $9, 3268($8)
 	jr $31
 
+#Laço do chão
 chao:
 	lui $8, 0x1001
 	addi $8, $8, 3328
