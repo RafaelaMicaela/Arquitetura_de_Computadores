@@ -1,22 +1,136 @@
 .text
+	addi $15, $0, 0 #Armazena posicao da nave
+	addi $16, $0, 0 #Controla direção
+	
+	addi $17, $0, 0 #Armazena posicao da nave
+	
+	addi $19, $0, 0 #Armazena posicao da nave
+
 	lui $8, 0x1001 #Meu Array
 	addi $9, $0, 0x2E613B #Cor verde escuro
 	jal navePequena
-	addi $8, $8, 288
-	jal navePequena
-	addi $8, $8, 192
-	jal navePequena
+	#addi $8, $8, 288
+	#jal navePequena
+	#addi $8, $8, 192
+	#jal navePequena
 	addi $8, $8, -480
 	jal naveGrande
 	addi $9, $0, 0xBD07C8
 	jal nave
 	jal chao
 	
-	addi $2, $0, 10 #Pausa
-	syscall	
+main:	
+ida:
+	beq $16, 7, saiIda
+	jal apagaNavePequena
+	addi $15, $15, 4
+	jal navePequena
+	
+	jal apagaNavePequena2
+	addi $17, $17, 4
+	jal navePequena2
+	
+	jal apagaNavePequena3
+	addi $18, $18, 4
+	jal navePequena3
+	
+	addi $16, $16, 1
+	addi $4, $0, 200
+	addi $2, $0, 32
+	syscall
+	j ida
+	
+saiIda:
+volta:
+	beq $16, 0, ida
+	jal apagaNavePequena
+	addi $15, $15, -4
+	jal navePequena
+	
+	jal apagaNavePequena2
+	addi $17, $17, -4
+	jal navePequena2
+	
+	jal apagaNavePequena3
+	addi $18, $18, -4
+	jal navePequena3
+	
+	addi $16, $16, -1
+	addi $4, $0, 200
+	addi $2, $0, 32
+	syscall
+	j volta
+	
+	#addi $2, $0, 10 #Pausa
+	#syscall	
 ###### Cenario ###########	
 	
 navePequena:
+	addi $9, $0, 0x2E613B #Cor verde escuro
+	lui $8, 0x1001
+	add $8, $8, $15
+	sw $9, 1452($8) #Desenho da nave pequena
+	sw $9, 1468($8)
+	sw $9, 1584($8)
+	sw $9, 1588($8)
+	sw $9, 1592($8)
+	sw $9, 1716($8)
+	jr $31
+apagaNavePequena:
+	addi $9, $0, 0x0 #Preto
+	lui $8, 0x1001
+	add $8, $8, $15
+	sw $9, 1452($8) #Desenho da nave pequena
+	sw $9, 1468($8)
+	sw $9, 1584($8)
+	sw $9, 1588($8)
+	sw $9, 1592($8)
+	sw $9, 1716($8)
+	jr $31
+	
+	
+navePequena2:
+	addi $9, $0, 0x2E613B #Cor verde escuro
+	lui $8, 0x1001
+	addi $8, $8, 288
+	add $8, $8, $17
+	sw $9, 1452($8) #Desenho da nave pequena
+	sw $9, 1468($8)
+	sw $9, 1584($8)
+	sw $9, 1588($8)
+	sw $9, 1592($8)
+	sw $9, 1716($8)
+	jr $31
+apagaNavePequena2:
+	addi $9, $0, 0x0 #Preto
+	lui $8, 0x1001
+	addi $8, $8, 288
+	add $8, $8, $17
+	sw $9, 1452($8) #Desenho da nave pequena
+	sw $9, 1468($8)
+	sw $9, 1584($8)
+	sw $9, 1588($8)
+	sw $9, 1592($8)
+	sw $9, 1716($8)
+	jr $31
+	
+navePequena3:
+	addi $9, $0, 0x2E613B #Cor verde escuro
+	lui $8, 0x1001
+	addi $8, $8, -188
+	add $8, $8, $18
+	sw $9, 1452($8) #Desenho da nave pequena
+	sw $9, 1468($8)
+	sw $9, 1584($8)
+	sw $9, 1588($8)
+	sw $9, 1592($8)
+	sw $9, 1716($8)
+	jr $31
+apagaNavePequena3:
+	addi $9, $0, 0x0 #Preto
+	lui $8, 0x1001
+	addi $8, $8, -188
+	add $8, $8, $18
 	sw $9, 1452($8) #Desenho da nave pequena
 	sw $9, 1468($8)
 	sw $9, 1584($8)
@@ -25,6 +139,7 @@ navePequena:
 	sw $9, 1716($8)
 	jr $31
 naveGrande:
+	lui $8, 0x1001
 	sw $9, 288($8)#Desenho da nave Grande
 	sw $9, 292($8)
 	sw $9, 296($8)
@@ -88,6 +203,7 @@ naveGrande:
 	jr $31
 
 nave:
+	lui $8, 0x1001
 	sw $9, 2620($8) #nave principal (a que é atacada) 
 	sw $9, 2744($8)
 	sw $9, 2748($8)
